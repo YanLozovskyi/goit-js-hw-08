@@ -8,6 +8,8 @@ const refs = {
   textAreaEl: document.querySelector('textarea[name="message"]'),
 };
 
+refs.inputEl.setAttribute('required', '');
+
 // устанавливаем ключ для локального хранилища
 const LOCALSTORAGE_KEY = 'feedback-form-state';
 
@@ -46,4 +48,3 @@ function submitFormHandler(evt) {
   refs.formEl.reset(); // очищаем поля формы
   localStorage.removeItem(LOCALSTORAGE_KEY); // удаляем данные из локального хранилища
 }
-
