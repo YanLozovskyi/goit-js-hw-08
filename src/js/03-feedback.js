@@ -25,9 +25,13 @@ let feedbackData = {};
 
 // Функция, которая обновляет данные формы и сохраняет их в локальное хранилище
 function updateFormData(evt) {
-  feedbackData.email = refs.inputEl.value;
-  feedbackData.message = refs.textAreaEl.value;
-
+  // feedbackData[evt.target.name] = evt.target.value;
+  // console.log(feedbackData);
+  const { name, value } = evt.target;
+  if (feedbackData[name] !== value) {
+    feedbackData[name] = value;
+    console.log(feedbackData);
+  }
   localStorage.setItem(LOCALSTORAGE_KEY, JSON.stringify(feedbackData));
 }
 
@@ -44,7 +48,8 @@ function populateFormFieldsFromStorage() {
 // Функция, которая обрабатывает отправку формы
 function submitFormHandler(evt) {
   evt.preventDefault(); // сбрасываем поведение по умолчанию
-  console.log(feedbackData); // выводим в консоль объект с данными формы
   refs.formEl.reset(); // очищаем поля формы
   localStorage.removeItem(LOCALSTORAGE_KEY); // удаляем данные из локального хранилища
+  console.log(feedbackData); // выводим в консоль объект с данными формы
+  feedbackData = {}; // очищаем объект 
 }
