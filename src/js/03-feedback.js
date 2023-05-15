@@ -8,7 +8,7 @@ const refs = {
   textAreaEl: document.querySelector('textarea[name="message"]'),
 };
 
-refs.inputEl.setAttribute('required', '');
+// refs.inputEl.setAttribute('required', '');
 
 // устанавливаем ключ для локального хранилища
 const LOCALSTORAGE_KEY = 'feedback-form-state';
@@ -41,15 +41,27 @@ function populateFormFieldsFromStorage() {
   const parsePersistedData = JSON.parse(persistedData);
 
   if (!persistedData) return;
-  refs.inputEl.value = parsePersistedData.email;
-  refs.textAreaEl.value = parsePersistedData.message;
+  refs.inputEl.value = parsePersistedData.email || '';
+  refs.textAreaEl.value = parsePersistedData.message || '';
 }
 
 // Функция, которая обрабатывает отправку формы
 function submitFormHandler(evt) {
   evt.preventDefault(); // сбрасываем поведение по умолчанию
+  // console.log(feedbackData); // выводим в консоль объект с данными формы
+  // feedbackData = {}; // очищаем объект
+  const formDataObj = {};
+  const formData = new FormData(refs.formEl);
+
+  const email1 = evt
+  console.log(email1);
+
+  formData.forEach((value, key) => {
+    console.log(key, value);
+    formDataObj[key] = value;
+  });
+
+  console.log('Дані з форми:', formDataObj);
   refs.formEl.reset(); // очищаем поля формы
   localStorage.removeItem(LOCALSTORAGE_KEY); // удаляем данные из локального хранилища
-  console.log(feedbackData); // выводим в консоль объект с данными формы
-  feedbackData = {}; // очищаем объект 
 }
